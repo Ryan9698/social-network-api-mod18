@@ -32,7 +32,7 @@ This app does not have a license.
 
 ## Link
 
-[Demo](https://drive.google.com/file/d/17j8vpMMKV7n8L5sBxR2m0_crlmodbN8w/view)
+[Demo Video](https://drive.google.com/file/d/1vd8EUvCbZAaNvaSOnWCTyRkolvKTvw_q/view)
 
 ## Screenshots
 
