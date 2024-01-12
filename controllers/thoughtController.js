@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const Thought = require('../models/Thought');
+const User = require("../models/User");
+const Thought = require("../models/Thought");
 
 // Get all thoughts
 async function getAllThoughts(req, res) {
@@ -7,7 +7,9 @@ async function getAllThoughts(req, res) {
     const thoughts = await Thought.find();
     res.json(thoughts);
   } catch (err) {
-    res.status(500).json({ error: 'Internal Server Error', message: err.message });
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", message: err.message });
   }
 }
 
@@ -17,16 +19,18 @@ async function getThoughtById(req, res) {
     const thought = await Thought.findById(req.params.id);
 
     if (!thought) {
-      return res.status(404).json({ message: 'Thought not found' });
+      return res.status(404).json({ message: "Thought not found" });
     }
 
     res.json(thought);
   } catch (err) {
-    res.status(500).json({ error: 'Internal Server Error', message: err.message });
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", message: err.message });
   }
 }
 
-// Create a new thought 
+// Create a new thought
 async function createThought(req, res) {
   const { thoughtText, username, userId } = req.body;
 
@@ -34,12 +38,13 @@ async function createThought(req, res) {
     const newThought = new Thought({ thoughtText, username, userId });
     const savedThought = await newThought.save();
 
-    // Push thoughts to associated user
-    await User.findByIdAndUpdate(userId, { $push: { thoughts: savedThought._id } });
+    await User.findByIdAndUpdate(userId, {
+      $push: { thoughts: savedThought._id },
+    });
 
     res.status(201).json(savedThought);
   } catch (err) {
-    res.status(400).json({ error: 'Bad Request', message: err.message });
+    res.status(400).json({ error: "Bad Request", message: err.message });
   }
 }
 
@@ -55,12 +60,12 @@ async function updateThoughtById(req, res) {
     );
 
     if (!updatedThought) {
-      return res.status(404).json({ message: 'Thought not found' });
+      return res.status(404).json({ message: "Thought not found" });
     }
 
     res.json(updatedThought);
   } catch (err) {
-    res.status(400).json({ error: 'Bad Request', message: err.message });
+    res.status(400).json({ error: "Bad Request", message: err.message });
   }
 }
 
@@ -70,12 +75,14 @@ async function deleteThoughtById(req, res) {
     const deletedThought = await Thought.findByIdAndDelete(req.params.id);
 
     if (!deletedThought) {
-      return res.status(404).json({ message: 'Thought not found' });
+      return res.status(404).json({ message: "Thought not found" });
     }
 
-    res.json({ message: 'Thought deleted' });
+    res.json({ message: "Thought deleted" });
   } catch (err) {
-    res.status(500).json({ error: 'Internal Server Error', message: err.message });
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", message: err.message });
   }
 }
 
@@ -92,12 +99,12 @@ async function createReaction(req, res) {
     );
 
     if (!updatedThought) {
-      return res.status(404).json({ message: 'Thought not found' });
+      return res.status(404).json({ message: "Thought not found" });
     }
 
     res.json(updatedThought);
   } catch (err) {
-    res.status(400).json({ error: 'Bad Request', message: err.message });
+    res.status(400).json({ error: "Bad Request", message: err.message });
   }
 }
 
@@ -113,12 +120,14 @@ async function removeReaction(req, res) {
     );
 
     if (!updatedThought) {
-      return res.status(404).json({ message: 'Thought not found' });
+      return res.status(404).json({ message: "Thought not found" });
     }
 
     res.json(updatedThought);
   } catch (err) {
-    res.status(500).json({ error: 'Internal Server Error', message: err.message });
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", message: err.message });
   }
 }
 
